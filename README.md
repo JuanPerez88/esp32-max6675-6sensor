@@ -58,11 +58,11 @@ cd esp32-max6675-6sensor
 
 ### 3. Configure
 
-Edit the User configuration section in main/main.c:
+Edit the User configuration section in `main/main.c`:
 
 - SPI hosts and pins
 - CS pin definitions
-- Sensor table (sensor_cfg[])
+- Sensor table (`sensor_cfg[]`)
 - Units and filter parameters
 
 ### 4. Build
