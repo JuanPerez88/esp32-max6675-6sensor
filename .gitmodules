@@ -1,0 +1,3 @@
+[submodule "components/max6675"]
+	path = components/max6675
+	url = https://github.com/JuanPerez88/esp-idf-max6675
