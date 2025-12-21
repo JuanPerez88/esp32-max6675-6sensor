@@ -11,6 +11,10 @@ Scalable and robust setup using:
 - Declarative sensor configuration
 - Protection against floating CS lines
 
+This project assumes a shared MISO line per SPI bus.  
+To ensure reliable detection of disconnected or missing MAX6675 modules,
+a pull-down resistor on each SPI MISO line is required.
+
 ---
 
 ## Features
@@ -30,6 +34,40 @@ Scalable and robust setup using:
 - 1–6 × MAX6675 modules
 - Type-K thermocouples
 - USB cable
+- 2 × 10 kΩ resistors (one per SPI MISO line)
+
+---
+
+## Important hardware note (MISO pull-down)
+
+When using multiple MAX6675 modules on a shared SPI bus (shared MISO),
+it is **strongly recommended** to add a pull-down resistor on each SPI MISO line.
+
+### Recommended setup
+
+- One **10 kΩ pull-down resistor**
+- Connected between **MISO and GND**
+- **One resistor per SPI bus** (not per sensor)
+
+Example:
+- SPI2 MISO → 10 kΩ → GND
+- SPI3 MISO → 10 kΩ → GND
+
+### Why this is required
+
+The MAX6675 does **not actively drive MISO high** when:
+- The module is disconnected
+- The module is unpowered
+- CS is floating
+- The module is missing
+
+Without a pull-down resistor, the MISO line may float and produce:
+- False temperature readings (e.g. `0.00 C`)
+- Saturated values (e.g. `1023.75 C`)
+- Cross-contamination between sensors on the same bus
+
+The driver detects floating or invalid SPI data patterns, but a pull-down
+resistor ensures deterministic electrical behavior and reliable fault detection.
 
 ---
 
