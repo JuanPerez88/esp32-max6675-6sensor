@@ -128,6 +128,18 @@ T4: 21.25 C
 T5: 21.00 C
 T6: 21.50 C
 ```
+
+## Sensor status reference
+
+Each MAX6675 read operation returns a temperature value and a status code.
+
+| Status | Meaning | Typical console output | Notes |
+|------|--------|------------------------|------|
+| `MAX6675_STATUS_OK` | Valid temperature reading | `21.50 C` | Thermocouple connected and SPI communication OK |
+| `MAX6675_STATUS_OPEN_THERMOCOUPLE` | Thermocouple disconnected | `TC OPEN` | One or both thermocouple wires not connected |
+| `MAX6675_STATUS_SPI_ERROR` | SPI communication error | `SPI ERR` | Missing module, floating MISO, wiring or power issue |
+| `MAX6675_STATUS_INVALID_ARG` | Invalid API usage | `ERR` | Programming error (should not happen in normal use) |
+
 ---
 
 ## License
